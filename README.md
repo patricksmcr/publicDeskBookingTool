@@ -19,7 +19,7 @@ When a user logins in to the application successfully, a session is created, whi
 3. run `pip3 install -r requirements.txt`.
 3. run `python3 db/utils/dbCreation.py` to create and populate the database with dummy data.
 4. run `python3 application.py` to run the api.
-5. in a seperate terminal, `cd` back into `deskBookingTool/api` and run `python3 db/utils/sessionSchedule.py`.
+5. in a seperate terminal, `cd` back into `publicDeskBookingTool/api` and run `python3 db/utils/sessionSchedule.py`.
  
 ### Frontend
 1. in a new terminal, `cd` into the `publicDeskBookingTool/ui` folder.
