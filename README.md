@@ -25,3 +25,9 @@ When a user logins in to the application successfully, a session is created, whi
 1. in a new terminal, `cd` into the `publicDeskBookingTool/ui` folder.
 2. run `python3 -m http.server`.
 3. in a browser, navigate to: `localhost:5000`
+
+##References
+
+References used within this application are as follows: 
+
+Manwg (2010) [online] Javascript implementation of Java’s String.hashCode() method, Available from: https://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/ [Accessed 26/09/22]
