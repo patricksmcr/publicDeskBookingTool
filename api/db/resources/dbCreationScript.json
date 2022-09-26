@@ -1,0 +1,62 @@
+[
+  {
+    "purpose":"drop_table",
+    "description": "drops the user table, if it exists",
+    "sql": "DROP TABLE IF EXISTS User"
+  },
+  {
+    "purpose":"drop_table",
+    "description": "drops the booking table, if it exists",
+    "sql": "DROP TABLE IF EXISTS Booking"
+  },
+  {
+    "purpose":"drop_table",
+    "description": "drops the desk table, if it exists",
+    "sql": "DROP TABLE IF EXISTS Desk"
+  },
+    {
+    "purpose":"drop_table",
+    "description": "drops the session table, if it exists",
+    "sql": "DROP TABLE IF EXISTS Session"
+  },
+  {
+    "purpose": "create_table",
+    "description": "creating user table",
+    "sql": "CREATE TABLE User (Email text PRIMARY KEY, Name text NOT NULL, IsAdmin bool NOT NULL, PasswordHash text NOT NULL);"
+  },
+  {
+    "purpose": "create_table",
+    "description": "creating desk table",
+    "sql": "CREATE TABLE Desk (DeskId INTEGER PRIMARY KEY AUTOINCREMENT, Room INTEGER NOT NULL);"
+  },
+  {
+    "purpose": "create_table",
+    "description": "creating booking table",
+    "sql": "CREATE TABLE Booking (BookingId INTEGER PRIMARY KEY AUTOINCREMENT, Email TEXT, DeskId INTEGER, Date DATE NOT NULL, FOREIGN KEY(Email) REFERENCES User(Email) FOREIGN KEY(DeskId) REFERENCES Desk(DeskId));"
+  },
+  {
+    "purpose": "create_table",
+    "description": "creating session table",
+    "sql": "CREATE TABLE Session (Token text PRIMARY KEY, Email TEXT, ExpireTime DATETIME, FOREIGN KEY(Email) REFERENCES User(Email));"
+  },
+  {
+    "purpose": "delete_records",
+    "description": "clearing the user table",
+    "sql": "DELETE FROM User"
+  },
+  {
+    "purpose": "delete_records",
+    "description": "clearing the desk table",
+    "sql": "DELETE FROM Desk"
+  },
+  {
+    "purpose": "delete_records",
+    "description": "clearing the Booking table",
+    "sql": "DELETE FROM Booking"
+  },  
+  {
+    "purpose": "delete_records",
+    "description": "clearing the Session table",
+    "sql": "DELETE FROM Session"
+  }
+]

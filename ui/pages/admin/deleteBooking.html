@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Desk booking</h1>
+    <h2>Delete Booking</h2>
+
+    <ul>
+      <li><a href="admin.html">Admin Panel</a></li>
+    </ul>
+
+    <p>Dates should be in the format yyyy-mm-dd</p>
+    <label for="filter">Select bookings by:</label>
+    <select id="filter" name="filter">
+      <option value="user" selected="selected">Email</option>
+      <option value="date">Date</option>
+      <option value="desk">Desk</option>
+    </select>
+    <input for="filter" id="filterValue" />
+
+    <input type="submit" value="Submit" onclick="onSumbit()" />
+
+    <table id="table">
+      <tr id="row1">
+        <th>
+          <span class="glyphicon glyphicon-sort"></span>&nbsp&nbspBookingId
+        </th>
+        <th><span class="glyphicon glyphicon-sort"></span>&nbsp&nbspEmail</th>
+        <th><span class="glyphicon glyphicon-sort"></span>&nbsp&nbspDeskId</th>
+        <th><span class="glyphicon glyphicon-sort"></span>&nbsp&nbspDate</th>
+      </tr>
+    </table>
+
+    <label for="bookingId">Booking:</label>
+    <input name="bookingId" id="bookingId" />
+    <input type="submit" value="delete" onclick="deleteBooking()" />
+
+    <script>
+      function onSumbit() {
+        filter = document.getElementById("filter").value;
+        filterValue = document.getElementById("filterValue").value;
+        switch (filter) {
+          case "user":
+            xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:5000/getUserBookings", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(
+              JSON.stringify({
+                email: filterValue,
+                token: localStorage.getItem("token"),
+              })
+            );
+            xhr.onload = () => {
+              if (xhr.status == 200) {
+                updateTables(JSON.parse(xhr.responseText));
+              } else {
+                if (xhr.response == "Session has expired or does not exist") {
+                  window.location.href = "login.html";
+                }
+              }
+            };
+            break;
+          case "desk":
+            xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:5000/getDeskBookings", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(
+              JSON.stringify({
+                deskId: filterValue,
+                token: localStorage.getItem("token"),
+              })
+            );
+            xhr.onload = () => {
+              if (xhr.status == 200) {
+                updateTables(JSON.parse(xhr.responseText));
+              } else {
+                if (xhr.response == "Session has expired or does not exist") {
+                  window.location.href = "login.html";
+                }
+              }
+            };
+            break;
+          case "date":
+            xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:5000/getDateBookings", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(
+              JSON.stringify({
+                date: filterValue,
+                token: localStorage.getItem("token"),
+              })
+            );
+            xhr.onload = () => {
+              if (xhr.status == 200) {
+                updateTables(JSON.parse(xhr.responseText));
+              } else {
+                if (xhr.response == "Session has expired or does not exist") {
+                  window.location.href = "login.html";
+                }
+              }
+            };
+            break;
+        }
+      }
+      function updateTables(data) {
+        var table = document.getElementById("table");
+        var row1 = document.getElementById("row1").outerHTML;
+        table.innerHTML = row1;
+        data.forEach(function (object) {
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td>" +
+            object["bookingId"] +
+            "</td>" +
+            "<td>" +
+            object["email"] +
+            "</td>" +
+            "<td>" +
+            object["deskId"] +
+            "</td>" +
+            "<td>" +
+            object["date"] +
+            "</td>";
+          table.appendChild(tr);
+        });
+      }
+      function deleteBooking() {
+        bookingId = document.getElementById("bookingId").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://127.0.0.1:5000/deleteBooking", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            bookingId: bookingId,
+            token: localStorage.getItem("token"),
+          })
+        );
+        xhr.onload = () => {
+          if (xhr.status == 200) {
+            window.location.href = "admin.html";
+          } else {
+            if (xhr.response == "Session has expired or does not exist") {
+              window.location.href = "../login.html";
+            } else {
+              alert("Could not delete booking");
+            }
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

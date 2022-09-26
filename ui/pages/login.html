@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Desk booking</h1>
+    <ul>
+        <li><a href="../index.html">Index</a></li>
+    </ul>
+    <h2>Login</h2>
+
+    <label for="email">Email: </label>
+    <input type="text" id="email" name="email" /><br /><br />
+    <label for="password">Password: </label>
+    <input type="password" id="password" name="password" /><br /><br />
+    <input type="submit" value="Submit" onclick="onSumbit()" />
+
+    <script>
+      String.prototype.hashCode = function () {
+        var hash = 0,
+          i,
+          chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+          chr = this.charCodeAt(i);
+          hash = (hash << 5) - hash + chr;
+          hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+      };
+
+      function onSumbit() {
+        var password = document.getElementById("password").value;
+        var passwordHash = password.hashCode().toString();
+        var user = document.getElementById("email").value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://127.0.0.1:5000/login", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            email: user,
+            passwordHash: passwordHash,
+          })
+        );
+        xhr.onload = () => {
+          if (xhr.status == 200) {
+            localStorage.setItem("token", xhr.response);
+            window.location.href = "bookings.html";
+          }
+          else{
+            alert("Failed to login");
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

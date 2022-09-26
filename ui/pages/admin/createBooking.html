@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Desk booking</h1>
+    <h2>Create Booking</h2>
+    <ul>
+        <li><a href="admin.html">Admin panel</a></li>
+    </ul>
+
+    <p>Dates should be in the format yyyy-mm-dd<br>Click the deskId of the desk you want to book</p>
+    <label for="date">Date:</label>
+    <input name="date" id="date" />
+    <label for="email">Email:</label>
+    <input name="email" id="email" />
+    <input type="submit" value="Submit" onclick="onSumbit()" />
+
+    <table id="table">
+      <tr id="row1">
+        <th><span class="glyphicon glyphicon-sort"></span>&nbsp&nbspDeskId</th>
+        <th><span class="glyphicon glyphicon-sort"></span>&nbsp&nbspRoom</th>
+      </tr>
+    </table>
+
+    <script>
+      function onSumbit() {
+        date = document.getElementById("date").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://127.0.0.1:5000/availableDesks", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            date: date,
+            token: localStorage.getItem("token"),
+          })
+        );
+        xhr.onload = () => {
+          if (xhr.status == 200) {
+            updateTables(JSON.parse(xhr.responseText));
+          } else {
+            if (xhr.response == "Session has expired or does not exist") {
+              window.location.href = "login.html";
+            }
+          }
+        };
+      }
+      function updateTables(data) {
+        var table = document.getElementById("table");
+        var row1 = document.getElementById("row1").outerHTML;
+        table.innerHTML = row1;
+        data.forEach(function (object) {
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td> <u onclick=selectDesk("+object['deskId']+")>" +
+            object["deskId"] +
+            "</u></td>" +
+            "<td>" +
+            object["room"] +
+            "</td>";
+          table.appendChild(tr);
+        });
+      }
+      function selectDesk(deskId){
+        date = document.getElementById("date").value;
+        email = document.getElementById("email").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://127.0.0.1:5000/createAdminBooking", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            date: date,
+            token: localStorage.getItem("token"),
+            deskId: deskId,
+            email: email
+          })
+        );
+        xhr.onload = () => {
+          if (xhr.status == 200) {
+            alert("Booking created");
+            window.location.href = "admin.html";
+          } else {
+            if (xhr.response == "Session has expired or does not exist") {
+              window.location.href = "../login.html";
+            }
+            else{
+                alert("Could not create Booking");
+            }
+          }
+        };
+        }
+    </script>
+  </body>
+</html>
