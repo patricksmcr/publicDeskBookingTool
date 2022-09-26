@@ -6,7 +6,7 @@ This application allow users to remotly book desks remotely, so that they can gu
 
 ## Technical details
 
-The backend of the project is made using python, and uses flask to manage the api, and sqlite3 to manage the database. The frontend of the application is made using html, and has no futher dependencies. Development of this project was done on Visual Studio Code, and the version control tool git has been used to aid development. When running localy, the python module `http.server` is used to serve the html localy. the python modle `schedule` was also used to schedule removal of exired sessions from the database.
+The backend of the project is made using python, and uses flask to manage the api, and sqlite3 to manage the database. The frontend of the application is made using html, and has no futher dependencies. Development of this project was done on Visual Studio Code, and the version control tool git has been used to aid development. When running localy, the python module `http.server` is used to serve the html localy. The python modle `schedule` was also used to schedule removal of exired sessions from the database.
 
 The API has backend routes that call methods that interact with the database, however, these routes only perform such operations if data sent in via requests is valid.
 
