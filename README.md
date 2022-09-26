@@ -14,7 +14,7 @@ When a user logins in to the application successfully, a session is created, whi
 
 ## Setup local deployment
 ### Backend
-1. clone the project: `git clone https://github.com/patricksmcr/deskBookingTool.git` and `cd` into it.
+1. clone the project: `git clone https://github.com/patricksmcr/publicDeskBookingTool.git` and `cd` into it.
 2. `cd` into the `api` directory.
 3. run `pip3 install -r requirements.txt`.
 3. run `python3 db/utils/dbCreation.py` to create and populate the database with dummy data.
@@ -22,6 +22,6 @@ When a user logins in to the application successfully, a session is created, whi
 5. in a seperate terminal, `cd` back into `deskBookingTool/api` and run `python3 db/utils/sessionSchedule.py`.
  
 ### Frontend
-1. in a new terminal, `cd` into the `deskBookingTool/ui` folder.
+1. in a new terminal, `cd` into the `publicDeskBookingTool/ui` folder.
 2. run `python3 -m http.server`.
 3. in a browser, navigate to: `localhost:5000`
