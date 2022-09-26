@@ -8,7 +8,7 @@ from api.db.utils.databaseUtils import createConnection, deleteFrom
 
 
 def checkExpiryDates():
-    connection = createConnection("../resources/database.db")
+    connection = createConnection("db/resources/database.db")
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
     deleteFrom(connection, Session, "ExpireTime < '" + now+"'")
 
