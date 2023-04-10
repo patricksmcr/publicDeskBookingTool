@@ -15,6 +15,11 @@ def validateInputs(record):
         isEmailValid = emailValidator(record["email"])
         if False in isEmailValid.keys():
             errors.append(isEmailValid[False])
+
+    if "isAdmin" in record.keys():
+        isAdminValid = isAdminValidator(record["isAdmin"])
+        if False in isAdminValid.keys():
+            errors.append(isAdminValid[False])
     return errors
 
 
@@ -33,3 +38,9 @@ def emailValidator(email):
         return {True:""}
     except Exception as e:
         return {False: "Invalid email adress"}
+
+def isAdminValidator(isAdmin):
+    if isAdmin in ['True','False']:
+        return {True:''}
+    else:
+        return{False:"Field 'isAdmin' must be True or False"}

@@ -191,10 +191,11 @@ def updateUser():
         validationErrors = validateInputs(requestJson)
         if len(validationErrors) != 0:
             return ", ".join(validationErrors), 400
-        user = getSessionUser(connection, requestJson["token"])[0]
+        requestingUser = getSessionUser(connection, requestJson["token"])[0]
+        
         email = requestJson["email"]
-        isAdmin = False
-        if user.isAdmin == 'True':
+        isAdmin = 'False'
+        if requestingUser.isAdmin == 'True':
             try:
                 user = getUsers(connection, email)[0]
             except:
@@ -205,10 +206,14 @@ def updateUser():
                 isAdmin = user.isAdmin
         else:
             try:
-                requestJson["email"]
-                return "Permission denied", 400
+                if requestingUser.email != email:
+                    return "Permission denied (HERE)", 400
+                user = getUsers(connection, email)[0]
+                if requestJson["isAdmin"] == 'True' and requestingUser.isAdmin == 'False':
+                    return "Permission denied", 401
+                isAdmin = user.isAdmin
             except:
-                pass
+                return "Missing fields", 400
         try:
             name = requestJson["name"]
         except:

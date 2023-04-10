@@ -10,10 +10,10 @@ from datetime import datetime, timedelta
 connection = createConnection("db/resources/database.db")
 
 insertInto(connection, User("user1@email.com", "person 1", True, "1216985755"))
-insertInto(connection, User("user2@email.com", "person 2", False, "hash2"))
-insertInto(connection, User("user3@email.com", "person 3", False, "hash3"))
-insertInto(connection, User("user4@email.com", "person 4", False, "hash4"))
-insertInto(connection, User("user5@email.com", "person 5", False, "hash5"))
+insertInto(connection, User("user2@email.com", "person 2", False, "1216985755"))
+insertInto(connection, User("user3@email.com", "person 3", False, "1216985755"))
+insertInto(connection, User("user4@email.com", "person 4", False, "1216985755"))
+insertInto(connection, User("user5@email.com", "person 5", False, "1216985755"))
 
 insertInto(connection, Desk(None,1))
 insertInto(connection, Desk(None,1))
