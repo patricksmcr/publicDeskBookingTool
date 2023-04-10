@@ -1,8 +1,8 @@
-from db.utils.databaseUtils import selectFrom
-from db.models.booking import Booking
-from db.models.session import Session
-from db.models.desk import Desk
-from db.models.user import User
+from src.utils.databaseUtils import selectFrom
+from src.models.booking import Booking
+from src.models.session import Session
+from src.models.desk import Desk
+from src.models.user import User
 
 
 # User select

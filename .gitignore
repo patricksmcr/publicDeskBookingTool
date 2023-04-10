@@ -1,3 +1,2 @@
-api/db/resources/database.db
-
+api/src/resources/database.db
 *__pycache__/

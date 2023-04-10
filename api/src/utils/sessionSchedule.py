@@ -1,12 +1,12 @@
 from datetime import datetime
 import schedule
 import time
-from db.models.session import Session
-from db.utils.databaseUtils import createConnection, deleteFrom
+from src.models.session import Session
+from src.utils.databaseUtils import createConnection, deleteFrom
 
 
 def checkExpiryDates():
-    connection = createConnection("db/resources/database.db")
+    connection = createConnection("src/resources/database.db")
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
     deleteFrom(connection, Session, "ExpireTime < '" + now+"'")
 

@@ -1,27 +1,20 @@
 import secrets
-from db.utils import selectUtils
-from db.utils.databaseUtils import createConnection, deleteFrom
-from db.utils.databaseUtils import insertInto, updateRecord
+from src.utils import selectUtils
+from src.utils.databaseUtils import createConnection, deleteFrom, insertInto, updateRecord
 from flask import Flask, request
 from flask_cors import CORS
-from db.utils.selectUtils import getSessionUser, getUsers
+from src.utils.selectUtils import getSessionUser, getUsers
 from jsonUtils import objectArrayToJson
-from db.models.booking import Booking
-from db.models.session import Session
-from db.models.user import User
-from db.utils.validation import validateInputs, validateSession
+from src.models import Booking, Session, User
+from src.utils.validation import validateInputs, validateSession
 from datetime import datetime, timedelta
-
-import sys
-sys.path.append("../")
 
 
 app = Flask(__name__)
 CORS(app)
 
-connection = createConnection("db/resources/database.db")
+connection = createConnection("src/resources/database.db")
 
-# Booking routes
 
 
 @app.route('/getUserBookings', methods=["POST"])

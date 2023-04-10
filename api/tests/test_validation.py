@@ -1,12 +1,10 @@
-import sys
-sys.path.append("../")
-from api.db.utils.databaseUtils import createConnection  # noqa
-from api.db.utils.selectUtils import getUsers, getAllUsers, getAvailableDesks, getBooking, getDateBookings, getDeskBookings, getSession, getSessionUser, getUserBookings # noqa
-from api.db.utils.validation import validateInputs, validateSession # noqa
-import api.db.utils.dbCreation  # noqa
+from src.utils.databaseUtils import createConnection  # noqa
+from src.utils.selectUtils import getUsers, getAllUsers, getAvailableDesks, getBooking, getDateBookings, getDeskBookings, getSession, getSessionUser, getUserBookings # noqa
+from src.utils.validation import validateInputs, validateSession # noqa
+import src.utils.dbCreation  # noqa
 
 
-connection = createConnection("db/resources/database.db")
+connection = createConnection("src/resources/database.db")
 
 
 def test_validDatePasses():

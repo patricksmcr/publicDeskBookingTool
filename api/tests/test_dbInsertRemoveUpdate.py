@@ -1,11 +1,9 @@
-import sys
-sys.path.append("../")
-from api.db.utils.databaseUtils import createConnection, insertInto, deleteFrom, updateRecord  # noqa
-from api.db.utils.selectUtils import getUsers, getAllUsers  # noqa
-from api.db.models.user import User  # noqa
-connection = createConnection("db/resources/database.db")
+from src.utils.databaseUtils import createConnection, insertInto, deleteFrom, updateRecord
+from src.utils.selectUtils import getUsers, getAllUsers
+from src.models import User
+connection = createConnection("src/resources/database.db")
 
-import api.db.utils.dbCreation  # noqa
+import src.utils.dbCreation # noqa
 
 
 def test_insertSingleRecord():

@@ -1,6 +1,6 @@
 import datetime
 from email_validator import validate_email
-from db.utils.selectUtils import getSession
+from src.utils.selectUtils import getSession
 
 
 def validateInputs(record):

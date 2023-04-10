@@ -1,11 +1,10 @@
-import sys
-sys.path.append("../")
-from api.db.utils.databaseUtils import createConnection  # noqa
-from api.db.utils.selectUtils import getUsers, getAllUsers, getAvailableDesks, getBooking, getDateBookings, getDeskBookings, getSession, getSessionUser, getUserBookings # noqa
+from src.utils.databaseUtils import createConnection
+from src.utils.selectUtils import getUsers, getAllUsers, getAvailableDesks, getBooking, getDateBookings
+from src.utils.selectUtils import getDeskBookings, getSession, getSessionUser, getUserBookings
 
-import api.db.utils.dbCreation  # noqa
+import src.utils.dbCreation  # noqa
 
-connection = createConnection("db/resources/database.db")
+connection = createConnection("src/resources/database.db")
 
 
 def test_selectSingleUser():

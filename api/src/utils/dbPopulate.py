@@ -1,14 +1,8 @@
-import sys
-sys.path.append("../")
-
 from datetime import datetime, timedelta # noqa
-from api.db.models.session import Session # noqa
-from api.db.models.desk import Desk # noqa
-from api.db.models.booking import Booking # noqa
-from api.db.models.user import User # noqa
-from api.db.utils.databaseUtils import createConnection, insertInto # noqa
+from src.models import Session, User, Desk, Booking  # noqa
+from src.utils.databaseUtils import createConnection, insertInto # noqa
 
-connection = createConnection("db/resources/database.db")
+connection = createConnection("src/resources/database.db")
 
 insertInto(connection, User("user1@email.com", "person 1", True, "1216985755"))
 insertInto(connection, User("user2@email.com",
