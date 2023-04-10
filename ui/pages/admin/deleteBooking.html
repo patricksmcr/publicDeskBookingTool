@@ -8,7 +8,7 @@
       <li><a href="admin.html">Admin Panel</a></li>
     </ul>
 
-    <p>Dates should be in the format yyyy-mm-dd</p>
+    <p>Dates should be in the format dd/mm/yyyy</p>
     <label for="filter">Select bookings by:</label>
     <select id="filter" name="filter">
       <option value="user" selected="selected">Email</option>
@@ -41,7 +41,7 @@
         switch (filter) {
           case "user":
             xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://127.0.0.1:5000/getUserBookings", true);
+            xhr.open("POST", "https://127.0.0.1:5000/getUserBookings", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(
               JSON.stringify({
@@ -61,7 +61,7 @@
             break;
           case "desk":
             xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://127.0.0.1:5000/getDeskBookings", true);
+            xhr.open("POST", "https://127.0.0.1:5000/getDeskBookings", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(
               JSON.stringify({
@@ -81,7 +81,7 @@
             break;
           case "date":
             xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://127.0.0.1:5000/getDateBookings", true);
+            xhr.open("POST", "https://127.0.0.1:5000/getDateBookings", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(
               JSON.stringify({
@@ -126,7 +126,7 @@
       function deleteBooking() {
         bookingId = document.getElementById("bookingId").value;
         xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://127.0.0.1:5000/deleteBooking", true);
+        xhr.open("POST", "https://127.0.0.1:5000/deleteBooking", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
           JSON.stringify({
@@ -139,9 +139,10 @@
             window.location.href = "admin.html";
           } else {
             if (xhr.response == "Session has expired or does not exist") {
+                alert("Token has expired or does not exist")
               window.location.href = "../login.html";
             } else {
-              alert("Could not delete booking");
+              alert(xhr.response);
             }
           }
         };

@@ -37,7 +37,7 @@
         password = document.getElementById("password").value;
         isAdmin = document.getElementById("isAdmin").value;
         xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://127.0.0.1:5000/updateUser", true);
+        xhr.open("POST", "https://127.0.0.1:5000/updateUser", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
           JSON.stringify({
@@ -57,7 +57,7 @@
               alert("Token has expired or does not exist");
               window.location.href = "../login.html";
             } else {
-              alert("Could not update user");
+              alert(xhr.response);
             }
           }
         };

@@ -8,7 +8,7 @@
         <li><a href="bookings.html">Bookings</a></li>
     </ul>
 
-    <p>Dates should be in the format yyyy-mm-dd<br>Click the deskId of the desk you want to book</p>
+    <p>Dates should be in the format dd/mm/yyyy<br>Click the deskId of the desk you want to book</p>
     <label for="date">Date:</label>
     <input name="date" id="date" />
     <input type="submit" value="Submit" onclick="onSumbit()" />
@@ -24,7 +24,7 @@
       function onSumbit() {
         date = document.getElementById("date").value;
         xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://127.0.0.1:5000/availableDesks", true);
+        xhr.open("POST", "https://127.0.0.1:5000/availableDesks", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
           JSON.stringify({
@@ -61,7 +61,7 @@
       function selectDesk(deskId){
         date = document.getElementById("date").value;
         xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://127.0.0.1:5000/createBooking", true);
+        xhr.open("POST", "https://127.0.0.1:5000/createBooking", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
           JSON.stringify({
@@ -80,7 +80,7 @@
               window.location.href = "login.html";
             }
             else{
-                alert("Could not create booking");
+                alert(xhr.response);
             }
           }
         };

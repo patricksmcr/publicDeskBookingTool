@@ -35,7 +35,7 @@
         var user = document.getElementById("email").value;
         var name = document.getElementById("name").value;
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://127.0.0.1:5000/registerAdmin", true);
+        xhr.open("POST", "https://127.0.0.1:5000/registerAdmin", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
           JSON.stringify({
@@ -47,7 +47,7 @@
         );
         xhr.onload = () => {
           if (xhr.status == 200) {
-            xhr.open("POST", "http://127.0.0.1:5000/login", true);
+            xhr.open("POST", "https://127.0.0.1:5000/login", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(
               JSON.stringify({
@@ -64,7 +64,7 @@
               alert("Token has expired or does not exist");
               window.location.href = "../login.html";
             } else {
-              alert("Could not register admin");
+              alert(xhr.response);
             }
           }
         };
