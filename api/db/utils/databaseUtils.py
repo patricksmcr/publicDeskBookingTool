@@ -22,7 +22,7 @@ def insertInto(connection, record):
         executeSqlCommand(connection, sqlCommand)
 
     elif type(record).__name__ == "Desk":
-        if record.deskId == None:
+        if record.deskId is None:
             deskId = 'NULL'
         else:
             deskId = record.deskId
@@ -33,7 +33,7 @@ def insertInto(connection, record):
         executeSqlCommand(connection, sqlCommand)
 
     elif type(record).__name__ == "Booking":
-        if record.bookingId == None:
+        if record.bookingId is None:
             bookingId = 'NULL'
         else:
             bookingId = record.bookingId
@@ -42,7 +42,7 @@ def insertInto(connection, record):
             fields="BookingId, Email, DeskId, Date",
             values=("{},'{}',{},'{}'".format(bookingId, record.email, record.deskId, record.date)))
         executeSqlCommand(connection, sqlCommand)
-    
+
     elif type(record).__name__ == "Session":
         sqlCommand = sqlCommand.format(
             table="Session",
@@ -64,13 +64,15 @@ def deleteFrom(connection, table, condition):
     sqlCommand = "DELETE FROM {} WHERE {};".format(table.__name__, condition)
     return executeSqlCommand(connection, sqlCommand)
 
+
 def updateRecord(connection, record):
     sqlCommand = "UPDATE {} SET {} WHERE {};"
 
     if type(record).__name__ == "User":
         sqlCommand = sqlCommand.format(
             "User",
-            "Name='{}', IsAdmin='{}', PasswordHash='{}'".format(record.name, record.isAdmin, record.passwordHash),
+            "Name='{}', IsAdmin='{}', PasswordHash='{}'".format(
+                record.name, record.isAdmin, record.passwordHash),
             "Email='{}'".format(record.email)
         )
         executeSqlCommand(connection, sqlCommand)
@@ -78,11 +80,12 @@ def updateRecord(connection, record):
     elif type(record).__name__ == "Booking":
         sqlCommand = sqlCommand.format(
             "Booking",
-            "Email='{}', DeskId={}, Date='{}'".format(record.email, record.deskId, record.date),
+            "Email='{}', DeskId={}, Date='{}'".format(
+                record.email, record.deskId, record.date),
             "BookingId='{}'".format(record.bookingId)
         )
         executeSqlCommand(connection, sqlCommand)
-    
+
     elif type(record).__name__ == "Desk":
         sqlCommand = sqlCommand.format(
             "Desk",
@@ -90,11 +93,12 @@ def updateRecord(connection, record):
             "DeskId='{}'".format(record.deskId)
         )
         executeSqlCommand(connection, sqlCommand)
-    
+
     elif type(record).__name__ == "Session":
         sqlCommand = sqlCommand.format(
             "Session",
-            "Email='{}', ExpireTime='{}'".format(record.email, record.expireTime),
+            "Email='{}', ExpireTime='{}'".format(
+                record.email, record.expireTime),
             "Token='{}'".format(record.token)
         )
         executeSqlCommand(connection, sqlCommand)

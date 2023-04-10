@@ -1,10 +1,8 @@
-import sys  # noqa
-sys.path.append("../../")  # noqa
-from api.db.utils.databaseUtils import selectFrom
-from api.db.models.booking import Booking
-from api.db.models.session import Session
-from api.db.models.desk import Desk
-from api.db.models.user import User
+from db.utils.databaseUtils import selectFrom
+from db.models.booking import Booking
+from db.models.session import Session
+from db.models.desk import Desk
+from db.models.user import User
 
 
 # User select

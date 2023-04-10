@@ -1,10 +1,8 @@
-import sys  # noqa
-sys.path.append('../')  # noqa
 from datetime import datetime
 import schedule
 import time
-from api.db.models.session import Session
-from api.db.utils.databaseUtils import createConnection, deleteFrom
+from db.models.session import Session
+from db.utils.databaseUtils import createConnection, deleteFrom
 
 
 def checkExpiryDates():

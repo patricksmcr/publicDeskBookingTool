@@ -1,8 +1,5 @@
-import sys # noqa
-sys.path.append("../") # noqa
-
-from api.db.utils.selectUtils import getUsers, getAllUsers, getDateBookings, getDeskBookings, getUserBookings, getAvailableDesks, getSession
-from api.db.utils.databaseUtils import createConnection
+from db.utils.selectUtils import getUsers, getAllUsers, getDateBookings, getDeskBookings, getUserBookings, getAvailableDesks
+from db.utils.databaseUtils import createConnection
 
 connection = createConnection("db/resources/database.db")
 

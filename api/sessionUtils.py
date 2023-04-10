@@ -1,6 +1,4 @@
-import sys
-sys.path.append("../../")
-from api.db.utils.selectUtils import getSession
+from db.utils.selectUtils import getSession
 
 
 def validateSession(connection, token):

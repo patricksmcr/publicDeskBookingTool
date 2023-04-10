@@ -10,7 +10,7 @@ def validateInputs(record):
             errors.append(validDate[False])
         else:
             record["date"] = validDate[True]
-        
+
     if "email" in record.keys():
         isEmailValid = emailValidator(record["email"])
         if False in isEmailValid.keys():
@@ -28,19 +28,20 @@ def dateValidator(date):
         validDate = datetime.datetime.strptime(date, "%d/%m/%Y")
         validDate = validDate.strftime("%Y-%m-%d")
         return {True: validDate}
-    except Exception as e:
+    except Exception:
         return {False: "Invalid date"}
 
 
 def emailValidator(email):
     try:
         validate_email(email).email
-        return {True:""}
-    except Exception as e:
+        return {True: ""}
+    except Exception:
         return {False: "Invalid email adress"}
 
+
 def isAdminValidator(isAdmin):
-    if isAdmin in ['True','False']:
-        return {True:''}
+    if isAdmin in ['True', 'False']:
+        return {True: ''}
     else:
-        return{False:"Field 'isAdmin' must be True or False"}
+        return {False: "Field 'isAdmin' must be True or False"}

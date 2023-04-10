@@ -1,18 +1,21 @@
-import sys  # noqa
-sys.path.append("../")  # noqa
 import secrets
-from api.db.utils import selectUtils
-from api.db.utils.databaseUtils import createConnection, deleteFrom, insertInto, updateRecord
+from db.utils import selectUtils
+from db.utils.databaseUtils import createConnection, deleteFrom
+from db.utils.databaseUtils import insertInto, updateRecord
 from flask import Flask, request
 from flask_cors import CORS
-from api.sessionUtils import validateSession
-from api.db.utils.selectUtils import getSession, getSessionUser, getUsers
-from api.jsonUtils import objectArrayToJson
-from api.db.models.booking import Booking
-from api.db.models.session import Session
-from api.db.models.user import User
-from api.db.utils.validation import validateInputs
+from sessionUtils import validateSession
+from db.utils.selectUtils import getSessionUser, getUsers
+from jsonUtils import objectArrayToJson
+from db.models.booking import Booking
+from db.models.session import Session
+from db.models.user import User
+from db.utils.validation import validateInputs
 from datetime import datetime, timedelta
+
+import sys
+sys.path.append("../")
+
 
 app = Flask(__name__)
 CORS(app)
@@ -20,6 +23,8 @@ CORS(app)
 connection = createConnection("db/resources/database.db")
 
 # Booking routes
+
+
 @app.route('/getUserBookings', methods=["POST"])
 def getUserBookings():
     requestJson = request.get_json()
@@ -192,7 +197,7 @@ def updateUser():
         if len(validationErrors) != 0:
             return ", ".join(validationErrors), 400
         requestingUser = getSessionUser(connection, requestJson["token"])[0]
-        
+
         email = requestJson["email"]
         isAdmin = 'False'
         if requestingUser.isAdmin == 'True':
@@ -239,7 +244,7 @@ def adminLogin():
         if user.isAdmin == 'True':
             session = secrets.token_urlsafe(16)
             insertInto(connection, Session(
-            session, requestJson["email"], datetime.now() + timedelta(hours=8)))
+                session, requestJson["email"], datetime.now() + timedelta(hours=8)))
             return session, 200
         else:
             return "User is not admin", 401

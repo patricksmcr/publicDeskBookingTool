@@ -1,7 +1,5 @@
-import sys  # noqa
-sys.path.append("../")  # noqa
 import json
-from api.db.utils.databaseUtils import createConnection, executeSqlCommand
+from db.utils.databaseUtils import createConnection, executeSqlCommand
 
 
 connection = createConnection("db/resources/database.db")
