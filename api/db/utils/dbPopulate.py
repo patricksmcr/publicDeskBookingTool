@@ -1,11 +1,12 @@
-from datetime import datetime, timedelta
-from db.models.session import Session
-from db.models.desk import Desk
-from db.models.booking import Booking
-from db.models.user import User
-from db.utils.databaseUtils import createConnection, insertInto
 import sys
 sys.path.append("../")
+
+from datetime import datetime, timedelta # noqa
+from api.db.models.session import Session # noqa
+from api.db.models.desk import Desk # noqa
+from api.db.models.booking import Booking # noqa
+from api.db.models.user import User # noqa
+from api.db.utils.databaseUtils import createConnection, insertInto # noqa
 
 connection = createConnection("db/resources/database.db")
 
@@ -25,15 +26,15 @@ insertInto(connection, Desk(None, 1))
 insertInto(connection, Desk(None, 2))
 insertInto(connection, Desk(None, 2))
 
-insertInto(connection, Booking(None, "user1@email.com", 1, "2000-01-1"))
-insertInto(connection, Booking(None, "user2@email.com", 2, "2000-01-1"))
-insertInto(connection, Booking(None, "user3@email.com", 4, "2000-01-1"))
-insertInto(connection, Booking(None, "user4@email.com", 1, "2000-01-2"))
-insertInto(connection, Booking(None, "user5@email.com", 3, "2000-01-2"))
-insertInto(connection, Booking(None, "user1@email.com", 2, "2000-01-2"))
-insertInto(connection, Booking(None, "user2@email.com", 1, "2000-01-3"))
-insertInto(connection, Booking(None, "user3@email.com", 4, "2000-01-3"))
-insertInto(connection, Booking(None, "user4@email.com", 2, "2000-01-3"))
+insertInto(connection, Booking(None, "user1@email.com", 1, "2000-01-01"))
+insertInto(connection, Booking(None, "user2@email.com", 2, "2000-01-01"))
+insertInto(connection, Booking(None, "user3@email.com", 4, "2000-01-01"))
+insertInto(connection, Booking(None, "user4@email.com", 1, "2000-01-02"))
+insertInto(connection, Booking(None, "user5@email.com", 3, "2000-01-02"))
+insertInto(connection, Booking(None, "user1@email.com", 2, "2000-01-02"))
+insertInto(connection, Booking(None, "user2@email.com", 1, "2000-01-03"))
+insertInto(connection, Booking(None, "user3@email.com", 4, "2000-01-03"))
+insertInto(connection, Booking(None, "user4@email.com", 2, "2000-01-03"))
 
 insertInto(connection, Session("token1", "user1@email.com",
            datetime.now() + timedelta(hours=6)))

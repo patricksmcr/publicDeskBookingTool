@@ -1,5 +1,7 @@
 import json
-from db.utils.databaseUtils import createConnection, executeSqlCommand
+import sys
+sys.path.append("../")
+from api.db.utils.databaseUtils import createConnection, executeSqlCommand # noqa
 
 
 connection = createConnection("db/resources/database.db")
@@ -12,4 +14,4 @@ for sqlObject in sqlJson:
     print(sqlObject["description"])
     executeSqlCommand(connection, sqlObject["sql"])
 connection.close()
-import dbPopulate  # noqa
+import api.db.utils.dbPopulate  # noqa

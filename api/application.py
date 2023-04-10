@@ -4,13 +4,12 @@ from db.utils.databaseUtils import createConnection, deleteFrom
 from db.utils.databaseUtils import insertInto, updateRecord
 from flask import Flask, request
 from flask_cors import CORS
-from sessionUtils import validateSession
 from db.utils.selectUtils import getSessionUser, getUsers
 from jsonUtils import objectArrayToJson
 from db.models.booking import Booking
 from db.models.session import Session
 from db.models.user import User
-from db.utils.validation import validateInputs
+from db.utils.validation import validateInputs, validateSession
 from datetime import datetime, timedelta
 
 import sys
@@ -203,11 +202,11 @@ def updateUser():
         if requestingUser.isAdmin == 'True':
             try:
                 user = getUsers(connection, email)[0]
-            except:
+            except Exception:
                 return "User could not be found"
             try:
                 isAdmin = requestJson["isAdmin"]
-            except:
+            except Exception:
                 isAdmin = user.isAdmin
         else:
             try:
@@ -217,15 +216,15 @@ def updateUser():
                 if requestJson["isAdmin"] == 'True' and requestingUser.isAdmin == 'False':
                     return "Permission denied", 401
                 isAdmin = user.isAdmin
-            except:
+            except Exception:
                 return "Missing fields", 400
         try:
             name = requestJson["name"]
-        except:
+        except Exception:
             name = user.name
         try:
             passwordHash = requestJson["passwordHash"]
-        except:
+        except Exception:
             passwordHash = user.passwordHash
 
         updateRecord(connection, User(email, name, isAdmin, passwordHash))

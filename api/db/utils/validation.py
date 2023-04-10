@@ -1,5 +1,6 @@
 import datetime
 from email_validator import validate_email
+from db.utils.selectUtils import getSession
 
 
 def validateInputs(record):
@@ -21,6 +22,12 @@ def validateInputs(record):
         if False in isAdminValid.keys():
             errors.append(isAdminValid[False])
     return errors
+
+
+def validateSession(connection, token):
+    if len(getSession(connection, token)) > 0:
+        return True
+    return False
 
 
 def dateValidator(date):
