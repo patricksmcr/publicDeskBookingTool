@@ -7,7 +7,6 @@ def createConnection(path):
     connection = None
     try:
         connection = sqlite3.connect(path, check_same_thread=False)
-        print(sqlite3.version)
     except Error as e:
         print(e)
     return connection

@@ -30,7 +30,7 @@ def getDateBookings(connection, date):
 
 
 def getBooking(connection, bookingId):
-    return selectFrom(connection, Booking, "BookingId = '{}'".format(bookingId))[0]
+    return selectFrom(connection, Booking, "BookingId = '{}'".format(bookingId))
 
 
 # Desk select
