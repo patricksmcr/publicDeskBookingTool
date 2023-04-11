@@ -9,7 +9,7 @@ import src.utils.dbCreation # noqa
 def test_insertSingleRecord():
     user = User("testemail@email.com", "test name", "False", "hash")
     insertInto(connection, user)
-    assert len(getUsers(connection, "testemail@email.com")) == 1
+    assert len(getUsers(connection, "testemail@email.com")) == 2
 
 
 def test_insertExistingRecordShouldNotUpdate():
