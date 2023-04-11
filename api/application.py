@@ -1,20 +1,20 @@
 import secrets
-from src.utils import selectUtils
-from src.utils.databaseUtils import createConnection, deleteFrom, insertInto, updateRecord
 from flask import Flask, request
 from flask_cors import CORS
-from src.utils.selectUtils import getSessionUser, getUsers
-from jsonUtils import objectArrayToJson
+from src.utils.databaseUtils import createConnection, deleteFrom, insertInto, updateRecord
+from src.utils import objectArrayToJson, validateInputs, validateSession
+from src.utils import selectUtils
 from src.models import Booking, Session, User
-from src.utils.validation import validateInputs, validateSession
 from datetime import datetime, timedelta
-
 
 app = Flask(__name__)
 CORS(app)
 
 connection = createConnection("src/resources/database.db")
 
+
+def startApp():
+    app.run(ssl_context='adhoc')
 
 
 @app.route('/getUserBookings', methods=["POST"])
@@ -62,7 +62,7 @@ def createBookings():
             return ", ".join(validationErrors), 400
         availableDesks = selectUtils.getAvailableDesks(
             connection, requestJson["date"])
-        email = getSessionUser(
+        email = selectUtils.getSessionUser(
             connection, request.get_json()["token"])[0].email
         for desk in availableDesks:
             if desk.deskId == int(requestJson["deskId"]):
@@ -78,7 +78,8 @@ def createBookings():
 def createAdminBookings():
     requestJson = request.get_json()
     if validateSession(connection, requestJson["token"]):
-        admin = getSessionUser(connection, request.get_json()["token"])[0]
+        admin = selectUtils.getSessionUser(
+            connection, request.get_json()["token"])[0]
         if admin.isAdmin == 'False':
             return "Permission denied", 400
         validationErrors = validateInputs(requestJson)
@@ -155,7 +156,7 @@ def register():
     validationErrors = validateInputs(requestJson)
     if len(validationErrors) != 0:
         return ", ".join(validationErrors), 400
-    if len(getUsers(connection, requestJson["email"])) < 1:
+    if len(selectUtils.getUsers(connection, requestJson["email"])) < 1:
         newUser = User(
             requestJson["email"], requestJson["name"], False, requestJson["passwordHash"])
         insertInto(connection, newUser)
@@ -170,8 +171,8 @@ def registerAdmin():
         validationErrors = validateInputs(requestJson)
         if len(validationErrors) != 0:
             return ", ".join(validationErrors), 400
-        if getSessionUser(connection, requestJson["token"])[0].isAdmin == 'True':
-            if len(getUsers(connection, requestJson["email"])) < 1:
+        if selectUtils.getSessionUser(connection, requestJson["token"])[0].isAdmin == 'True':
+            if len(selectUtils.getUsers(connection, requestJson["email"])) < 1:
                 newUser = newUser = User(
                     requestJson["email"], requestJson["name"], True, requestJson["passwordHash"])
                 insertInto(connection, newUser)
@@ -188,13 +189,14 @@ def updateUser():
         validationErrors = validateInputs(requestJson)
         if len(validationErrors) != 0:
             return ", ".join(validationErrors), 400
-        requestingUser = getSessionUser(connection, requestJson["token"])[0]
+        requestingUser = selectUtils.getSessionUser(
+            connection, requestJson["token"])[0]
 
         email = requestJson["email"]
         isAdmin = 'False'
         if requestingUser.isAdmin == 'True':
             try:
-                user = getUsers(connection, email)[0]
+                user = selectUtils.getUsers(connection, email)[0]
             except Exception:
                 return "User could not be found"
             try:
@@ -205,7 +207,7 @@ def updateUser():
             try:
                 if requestingUser.email != email:
                     return "Permission denied (HERE)", 400
-                user = getUsers(connection, email)[0]
+                user = selectUtils.getUsers(connection, email)[0]
                 if requestJson["isAdmin"] == 'True' and requestingUser.isAdmin == 'False':
                     return "Permission denied", 401
                 isAdmin = user.isAdmin
@@ -242,6 +244,3 @@ def adminLogin():
             return "User is not admin", 401
 
     return "Unable to authenticate", 401
-
-
-app.run(ssl_context='adhoc')

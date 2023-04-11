@@ -16,7 +16,7 @@ def test_selectNoUsers():
 
 
 def test_selectAllUsers():
-    assert len(getAllUsers(connection)) == 5
+    assert len(getAllUsers(connection)) == 6
 
 
 def test_getAvailableDesks():

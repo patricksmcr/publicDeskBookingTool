@@ -25,7 +25,7 @@ def test_deleteSingleRecord():
 
 def test_deleteNonExistingRecord():
     deleteFrom(connection, User, "email='testemail@email.com'")
-    assert len(getAllUsers(connection)) == 5
+    assert len(getAllUsers(connection)) == 6
 
 
 def test_updateRecord():
