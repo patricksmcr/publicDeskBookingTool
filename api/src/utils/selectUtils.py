@@ -50,4 +50,3 @@ def getSessionUser(connection, token):
         return getUsers(connection, getSession(connection, token)[0].email)
     except Exception:
         return []
-

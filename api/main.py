@@ -9,7 +9,7 @@ def printHelperText():
     ***
     --dev, -d \t\t | Dev \t\t | Resets the db and populates it with dev data, then starts the API.
     --resetDev, -r \t | Restet Dev \t | Resets the db and populates it with dev data. Does not start the API.
-    --clean, -c \t | Clean API \t | Resets the db, and starts the API. Does not populate the DB (an Admin login 
+    --clean, -c \t | Clean API \t | Resets the db, and starts the API. Does not populate the DB (an Admin login
 \t\t\t\t\t ...will stillbe created).
     --test, -t \t\t | Runs tests \t | Resets the dev db and runs the unit tests. Does not start the API.
     ***
@@ -32,6 +32,5 @@ if __name__ == "__main__":
             createDb()
             populateDb()
             sys.exit(pytest.main(["tests"]))
-            
-    startApp()
 
+    startApp()
