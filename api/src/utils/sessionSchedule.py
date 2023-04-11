@@ -1,6 +1,6 @@
 from datetime import datetime
-import schedule
 import time
+from threading import Thread
 from src.models.session import Session
 from src.utils.databaseUtils import createConnection, deleteFrom
 
@@ -11,8 +11,12 @@ def checkExpiryDates():
     deleteFrom(connection, Session, "ExpireTime < '" + now+"'")
 
 
-schedule.every(5).minutes.do(checkExpiryDates)
+def sessionSchedule():
+    while True:
+        checkExpiryDates()
+        time.sleep(60)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+
+def startSeessionSchedule():
+    daemon = Thread(target=sessionSchedule, daemon=True, name="sessionSchedule")
+    daemon.start()

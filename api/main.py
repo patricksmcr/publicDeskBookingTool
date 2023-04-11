@@ -1,6 +1,6 @@
 import sys
 import pytest
-from src.utils import createDb, populateDb
+from src.utils import createDb, populateDb, startSeessionSchedule
 from application import startApp
 
 
@@ -17,6 +17,7 @@ def printHelperText():
 
 
 if __name__ == "__main__":
+    startSessionSchedule = True
     for i, arg in enumerate(sys.argv):
         if arg in ["--help", "-h"]:
             sys.exit(printHelperText())
@@ -32,5 +33,9 @@ if __name__ == "__main__":
             createDb()
             populateDb()
             sys.exit(pytest.main(["tests"]))
+        if arg in ["--remove-session-schedule", "-rss"]:
+            stopSessionSchedule = False
 
+    if startSessionSchedule:
+        startSeessionSchedule()
     startApp()
