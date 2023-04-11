@@ -1,6 +1,7 @@
 import json
 from src.models import User
 from src.utils.databaseUtils import createConnection, executeSqlCommand, insertInto # noqa
+from configparser import RawConfigParser
 
 
 def createDb():
@@ -14,5 +15,9 @@ def createDb():
         print(sqlObject["description"])
         executeSqlCommand(connection, sqlObject["sql"])
 
-    insertInto(connection, User("admin@email.com", "person 1", True, "1216985755"))
+    config = RawConfigParser()
+    config.read('admin.config')
+    configDict = dict(config.items("ADMIN VARIABLES"))
+
+    insertInto(connection, User(configDict['email'], configDict['name'], True, configDict['hash']))
     connection.close()
