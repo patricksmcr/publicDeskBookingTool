@@ -16,10 +16,11 @@ When a user logins in to the application successfully, a session is created, whi
 ### Backend
 1. clone the project: `git clone https://github.com/patricksmcr/publicDeskBookingTool.git` and `cd` into it.
 2. `cd` into the `api` directory (The `main.py` file should always be ran from the `api` directory).
-3. run `pip3 install -r requirements.txt`.
-4. run `python3 main.py -d` to create and populate the db and start the API.
-5. use `python3 main.py -t` to run the pytests.
-6. use `python3 main.py --help` to see other supported arguments
+3. (optinal) change the variables in the `admin.config` to match that of a admin
+4. run `pip3 install -r requirements.txt`.
+5. run `python3 main.py -d` to create and populate the db and start the API.
+6. use `python3 main.py -t` to run the pytests.
+7. use `python3 main.py --help` to see other supported arguments
  
 ### Frontend
 1. in a new terminal, `cd` into the `publicDeskBookingTool/ui` folder.

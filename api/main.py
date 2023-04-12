@@ -1,7 +1,7 @@
 import sys
 import pytest
 from src.utils import createDb, populateDb, startSeessionSchedule
-from application import startApp
+from src.application import startApp
 
 
 def printHelperText():

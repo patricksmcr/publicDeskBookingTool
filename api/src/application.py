@@ -108,7 +108,7 @@ def deleteBooking():
         if len(booking) == 0:
             return "Booking could not be found", 404
         user = selectUtils.getSessionUser(connection, requestJson["token"])[0]
-        if booking.email == user.email:
+        if booking[0].email == user.email:
             deleteFrom(connection, Booking, "BookingId = {}".format(
                 requestJson["bookingId"]))
             return "Deleted booking", 200
