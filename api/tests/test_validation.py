@@ -35,9 +35,35 @@ def test_invalidDateAndEmailPasses():
     assert len(validateInputs({"date": "32/01/2000", "email": "invalid@email@email.com"})) == 2
 
 
+def test_validStringField():
+    assert len(validateInputs({"name": "Human Name"})) == 0
+
+
+def test_invalidStringFieldContainsInvalidCharacter():
+    assert len(validateInputs({"name": "Human's Name"})) == 1
+
+
+def test_invalidStringFieldIsNotString():
+    assert len(validateInputs({"name": 123})) == 1
+
+
+def test_validIntegerInputIsString():
+    assert len(validateInputs({"deskId": "123"})) == 0
+
+
+def test_validIntegerInputIsInteger():
+    assert len(validateInputs({"deskId": 123})) == 0
+
+
+def test_invalidIntegerInputIsStringAndNotInteger():
+    assert len(validateInputs({"deskId": "1.23"})) == 1
+
+
 def test_validSession():
     assert validateSession(connection, "token1")
 
 
 def test_invalidSession():
     assert validateSession(connection, "invalidToken") is False
+
+

@@ -82,7 +82,7 @@ def updateRecord(connection, record):
             "Booking",
             "Email='{}', DeskId={}, Date='{}'".format(
                 record.email, record.deskId, record.date),
-            "BookingId='{}'".format(record.bookingId)
+            "BookingId={}".format(record.bookingId)
         )
         executeSqlCommand(connection, sqlCommand)
 
@@ -90,7 +90,7 @@ def updateRecord(connection, record):
         sqlCommand = sqlCommand.format(
             "Desk",
             "Room='{}'".format(record.room),
-            "DeskId='{}'".format(record.deskId)
+            "DeskId={}".format(record.deskId)
         )
         executeSqlCommand(connection, sqlCommand)
 

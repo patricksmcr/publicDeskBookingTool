@@ -5,22 +5,36 @@ from src.utils.selectUtils import getSession
 
 def validateInputs(record):
     errors = []
-    if "date" in record.keys():
-        validDate = dateValidator(record["date"])
-        if False in validDate.keys():
-            errors.append(validDate[False])
-        else:
-            record["date"] = validDate[True]
+    for key, value in record.items():
+        if key in ["name", "token", "passwordHash"]:
+            try:
+                if "'" in value:
+                    errors.append("Values cannot contain a ' character")
+            except Exception:
+                errors.append("Error with field"+key+"")
+            
+        if key in ["deskId", "bookingId"]:
+            try:
+                int(value)
+            except Exception:
+                errors.append(""+key+" must be an integer")
 
-    if "email" in record.keys():
-        isEmailValid = emailValidator(record["email"])
-        if False in isEmailValid.keys():
-            errors.append(isEmailValid[False])
+        if "date" == key:
+            validDate = dateValidator(record["date"])
+            if False in validDate.keys():
+                errors.append(validDate[False])
+            else:
+                record["date"] = validDate[True]
 
-    if "isAdmin" in record.keys():
-        isAdminValid = isAdminValidator(record["isAdmin"])
-        if False in isAdminValid.keys():
-            errors.append(isAdminValid[False])
+        if "email" == key:
+            isEmailValid = emailValidator(record["email"])
+            if False in isEmailValid.keys():
+                errors.append(isEmailValid[False])
+
+        if "isAdmin" == key:
+            isAdminValid = isAdminValidator(record["isAdmin"])
+            if False in isAdminValid.keys():
+                errors.append(isAdminValid[False])
     return errors
 
 
