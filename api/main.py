@@ -12,6 +12,7 @@ def printHelperText():
     --clean, -c \t | Clean API \t | Resets the db, and starts the API. Does not populate the DB (an Admin login
 \t\t\t\t\t ...will stillbe created).
     --test, -t \t\t | Runs tests \t | Resets the dev db and runs the unit tests. Does not start the API.
+    --remove-session-schedule, -rss \t | Prevents sessions from expiring, intended for development purposes
     ***
     ''')
 
